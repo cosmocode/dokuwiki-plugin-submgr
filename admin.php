@@ -44,6 +44,15 @@ class admin_plugin_submgr extends DokuWiki_Admin_Plugin {
             }
         }
 
+        if($INPUT->has('rm')) {
+            try {
+                $this->removeRule($INPUT->str('rm'));
+                send_redirect($url);
+            } catch(Exception $e) {
+                msg($e->getMessage(), -1);
+            }
+        }
+
     }
 
     /**
@@ -146,10 +155,28 @@ class admin_plugin_submgr extends DokuWiki_Admin_Plugin {
             throw new Exception('no users or groups given');
         }
 
+        // remove existing (will be ignored if doesn't exist)
+        $this->removeRule($item);
+
         $this->rules[$item] = array($type, $members);
         $this->writeRules();
 
         $this->applyRule($item, $type, $members);
+    }
+
+    /**
+     * Removes an existing rule
+     *
+     * @param string $item page or namespace
+     */
+    protected function removeRule($item) {
+        if(!isset($this->rules[$item])) return;
+
+        list($type, $members) = $this->rules[$item];
+        unset($this->rules[$item]);
+        $this->writeRules();
+
+        $this->ceaseRule($item, $type, $members);
     }
 
     /**
@@ -180,6 +207,23 @@ class admin_plugin_submgr extends DokuWiki_Admin_Plugin {
         $sub = new Subscription();
         foreach($users as $user) {
             $sub->add($item, $user, $type);
+        }
+    }
+
+    /**
+     * Removes a rule by unsubscribing all affected users
+     *
+     * @param string $item page or namespace
+     * @param string $type every|digest|list
+     * @param string $members user/group list
+     * @throws Exception
+     */
+    protected function ceaseRule($item, $type, $members) {
+        $users = $this->getAffectedUsers($members);
+
+        $sub = new Subscription();
+        foreach($users as $user) {
+            $sub->remove($item, $user, $type);
         }
     }
 
