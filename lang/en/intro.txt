@@ -1,0 +1,6 @@
+====== Automatic Subscription Management ======
+
+This tool allows you to define rules for automatically adding email subscriptions for users and groups. When a new
+rule is added, it is automatically applied to all matching users (eg. they are subscribed to the given page or
+namespace immeadiately). All existing rules are automatically applied to all newly created users.
+

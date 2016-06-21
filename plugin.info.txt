@@ -1,0 +1,7 @@
+base   submgr
+author Andreas Gohr
+email  dokuwiki@cosmocode.de
+date   2016-06-21
+name   submgr plugin
+desc   Manage subscriptions for users
+url    https://www.dokuwiki.org/plugin:submgr
