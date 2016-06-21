@@ -98,7 +98,7 @@ class admin_plugin_submgr extends DokuWiki_Admin_Plugin {
 
         echo '<h2>' . $this->getLang('legend') . '</h2>';
 
-        echo '<form method="post" action="' . $url . '">';
+        echo '<form method="post" action="' . $url . '" class="plugin_submgr">';
         echo '<fieldset>';
         echo '<label class="block"><span>' . $this->getLang('item') . '</span> <input type="text" name="d[item]" /></label>';
         echo '<label class="block"><span>' . $this->getLang('members') . '</span> <input type="text" name="d[members]" /></label>';
