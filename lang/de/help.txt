@@ -1,0 +1,2 @@
+Namensräume mit schließendem Doppelpunkt angeben: ''some:namespace:'' \\
+Gruppen mit führendem Ät-Zeichen angeben: ''@group'' - mehrere Gruppen und Nutzer können Kommasepariert gelistet werden

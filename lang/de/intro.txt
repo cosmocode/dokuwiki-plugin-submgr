@@ -1,0 +1,5 @@
+====== Automatisches Abo-Management ======
+
+Dieses Werkzeug erlaubt das Erstellen von Regeln die automatisch E-Mail-Abonnements für Nutzer und Gruppen erzeugen.
+Neu hinzugefüge Regeln werden sofort auf alle betroffenen Nutzer angewandt (dh. Abonnements für die gegebene Seite
+oder Namensraum werden angelegt). Bestehende Regeln werden automatisch auf alle neuen Nutzer angewendet.

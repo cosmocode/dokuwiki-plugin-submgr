@@ -1,2 +1,2 @@
 Namespaces are specified by a trailing colon: ''some:namespace:'' \\
-Groups are specified with a leading at-character: ''@group''
+Groups are specified with a leading at-character: ''@group'' - multiple users and groups can be specified comma separated
