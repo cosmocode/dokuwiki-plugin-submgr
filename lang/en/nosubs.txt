@@ -1,0 +1,4 @@
+===== Subscriptions Disabled =====
+
+E-Mail subscriptions are currently disabled in this wiki. Check the [[doku>config:subscribers|subscribers]] and
+the [[doku>config:disableactions|disableactions]] config options.

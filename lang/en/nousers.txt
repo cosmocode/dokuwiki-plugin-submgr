@@ -1,0 +1,5 @@
+===== Missing Auth Capability =====
+
+The authentication backend currently in use does not allow retrieving a list of users within a given group. This
+functionality is needed for this plugin. Maybe your auth plugin needs additional configuration, maybe it is simply
+not supported.

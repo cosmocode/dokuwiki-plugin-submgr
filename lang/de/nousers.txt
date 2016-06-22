@@ -1,0 +1,6 @@
+===== Fehlendes Authentifizierungs-Feature =====
+
+Mit dem momentan verwendeten Authentifizierungs-Backend ist es nicht möglich eine Liste an Nutzern zu erhalten die
+einer bestimmten Gruppe angehören. Dieses Feature ist zwingend notwendig für die Nutzung dieses Plugins. Eventuell
+kann das Problem durch zusätzliche Konfiguration für das Authentifizierungsplugin behoben werden, möglicherweise
+wird aber das Feature auch einfach nicht unterstützt.

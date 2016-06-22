@@ -1,0 +1,4 @@
+===== E-Mail Abos Deaktiviert =====
+
+E-Mail Abonnements sind in diesem Wiki momentan deaktiviert. Prüfen Sie die [[doku>config:subscribers|subscribers]] und
+[[doku>config:disableactions|disableactions]] Konfigurationsoptionen.

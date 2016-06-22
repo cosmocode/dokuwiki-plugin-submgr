@@ -68,6 +68,11 @@ class admin_plugin_submgr extends DokuWiki_Admin_Plugin {
         $url = wl($ID, array('do' => 'admin', 'page' => 'submgr'));
 
         echo $this->locale_xhtml('intro');
+
+
+        if(!$this->checkSettings()) return;
+
+
         echo '<h2>' . $this->getLang('rules') . '</h2>';
 
         echo '<table>';
@@ -117,6 +122,28 @@ class admin_plugin_submgr extends DokuWiki_Admin_Plugin {
 
     }
 
+    /**
+     * Check capabilities and print errors
+     *
+     * @return bool
+     */
+    protected function checkSettings() {
+        /** @var DokuWiki_Auth_Plugin $auth */
+        global $auth;
+        $ok = true;
+
+        if(!actionOK('subscribe')) {
+            echo $this->locale_xhtml('nosubs');
+            $ok = false;
+        }
+
+        if(!$auth->canDo('getUsers')) {
+            echo $this->locale_xhtml('nousers');
+            $ok = false;
+        }
+
+        return $ok;
+    }
 }
 
 // vim:ts=4:sw=4:et:
