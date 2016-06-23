@@ -22,6 +22,7 @@ $lang['every'] = 'Jede Änderung';
 $lang['digest'] = 'Zusammenfassung';
 $lang['list'] = 'Liste von Seiten (nur Namenraum)';
 
-
+$lang['appliedrule'] = 'Regel auf %d existierende Nutzer angewendet';
+$lang['removedrule'] = 'Regel von %d existierenden Nutzern entfernt';
 
 //Setup VIM: ex: et ts=4 :

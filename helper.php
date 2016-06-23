@@ -142,11 +142,11 @@ class helper_plugin_submgr extends DokuWiki_Admin_Plugin {
      */
     protected function applyRule($item, $type, $members) {
         $users = $this->getAffectedUsers($members);
-
         $sub = new Subscription();
         foreach($users as $user) {
             $sub->add($item, $user, $type);
         }
+        msg(sprintf($this->getLang('appliedrule'), count($users)));
     }
 
     /**
@@ -164,6 +164,7 @@ class helper_plugin_submgr extends DokuWiki_Admin_Plugin {
         foreach($users as $user) {
             $sub->remove($item, $user, $type);
         }
+        msg(sprintf($this->getLang('removedrule'), count($users)));
     }
 
     /**

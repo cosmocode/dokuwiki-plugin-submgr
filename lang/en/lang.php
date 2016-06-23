@@ -22,6 +22,7 @@ $lang['every'] = 'Every Change';
 $lang['digest'] = 'Digest';
 $lang['list'] = 'List of Pages (Namespace only)';
 
-
+$lang['appliedrule'] = 'Applied rule to %d existing users';
+$lang['removedrule'] = 'Removed from %d existing users';
 
 //Setup VIM: ex: et ts=4 :
