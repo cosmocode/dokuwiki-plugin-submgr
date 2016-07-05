@@ -186,7 +186,8 @@ class helper_plugin_submgr extends DokuWiki_Admin_Plugin {
         $users = array();
         foreach($members as $one) {
             if(substr($one, 0, 1) == '@') {
-                $found = $auth->retrieveUsers(0, 0, array('grps' => substr($one, 1)));
+                // passing 0 for all users is broken in some backends (#1630), limiting to 5000 should be good enough
+                $found = $auth->retrieveUsers(0, 5000, array('grps' => substr($one, 1)));
                 $users = array_merge($users, array_keys($found));
             } else {
                 $users[] = $one;
