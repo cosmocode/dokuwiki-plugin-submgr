@@ -19,27 +19,47 @@ class action_plugin_submgr extends DokuWiki_Action_Plugin {
      */
     public function register(Doku_Event_Handler $controller) {
 
-       $controller->register_hook('AUTH_USER_CHANGE', 'BEFORE', $this, 'handle_auth_user_change');
+        $controller->register_hook('AUTH_USER_CHANGE', 'BEFORE', $this, 'handle_auth_user_change');
 
+        if($this->getConf('applyonlogin')) {
+            $controller->register_hook('AUTH_LOGIN_CHECK', 'AFTER', $this, 'handle_login');
+        }
     }
 
     /**
-     * [Custom event handler which performs action]
+     * Apply rules on a newly created user
      *
-     * @param Doku_Event $event  event object by reference
-     * @param mixed      $param  [the parameters passed as fifth argument to register_hook() when this
-     *                           handler was registered]
+     * @param Doku_Event $event event object by reference
+     * @param mixed $param not used
      * @return void
      */
-
     public function handle_auth_user_change(Doku_Event $event, $param) {
+        if($event->data['type'] != 'create') return;
+
         /** @var helper_plugin_submgr $hlp */
         $hlp = plugin_load('helper', 'submgr');
+        $hlp->runRules($event->data['params'][0], $event->data['params'][4]);
+    }
 
-        if($event->data['type'] == 'create') {
-            $hlp->runRules($event->data['params'][0], $event->data['params'][4]);
-        }
+    /**
+     * Apply rules on a successful user login (only once per session)
+     *
+     * @param Doku_Event $event event object by reference
+     * @param mixed $param not used
+     * @return void
+     */
+    public function handle_login(Doku_Event $event, $param) {
+        global $INPUT;
 
+        if(!$event->result) return;
+        if(isset($_SESSION[DOKU_COOKIE]['submgr'])) return;
+        if(!$INPUT->server->str('REMOTE_USER')) return;
+        global $USERINFO;
+
+        /** @var helper_plugin_submgr $hlp */
+        $hlp = plugin_load('helper', 'submgr');
+        $hlp->runRules($INPUT->server->str('REMOTE_USER'), $USERINFO['grps']);
+        $_SESSION[DOKU_COOKIE]['submgr'] = 1;
     }
 
 }
