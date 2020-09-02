@@ -1,16 +1,13 @@
 <?php
+
 /**
  * DokuWiki Plugin submgr (Admin Component)
  *
  * @license GPL 2 http://www.gnu.org/licenses/gpl-2.0.html
  * @author  Andreas Gohr <dokuwiki@cosmocode.de>
  */
-
-// must be run within Dokuwiki
-
-if(!defined('DOKU_INC')) die();
-
-class admin_plugin_submgr extends DokuWiki_Admin_Plugin {
+class admin_plugin_submgr extends DokuWiki_Admin_Plugin
+{
 
     /** @var helper_plugin_submgr */
     protected $hlp;
@@ -18,41 +15,44 @@ class admin_plugin_submgr extends DokuWiki_Admin_Plugin {
     /**
      * admin_plugin_submgr constructor.
      */
-    public function __construct() {
+    public function __construct()
+    {
         $this->hlp = plugin_load('helper', 'submgr');
     }
 
     /**
      * @return bool true if only access for superuser, false is for superusers and moderators
      */
-    public function forAdminOnly() {
+    public function forAdminOnly()
+    {
         return false;
     }
 
     /**
      * Should carry out any processing required by the plugin.
      */
-    public function handle() {
+    public function handle()
+    {
         global $INPUT;
         global $ID;
 
         $url = wl($ID, array('do' => 'admin', 'page' => 'submgr'), true, '&');
 
-        if($INPUT->has('d')) {
+        if ($INPUT->has('d')) {
             try {
                 $new = $INPUT->arr('d');
                 $this->hlp->addRule($new['item'], $new['type'], $new['members']);
                 send_redirect($url);
-            } catch(Exception $e) {
+            } catch (Exception $e) {
                 msg($e->getMessage(), -1);
             }
         }
 
-        if($INPUT->has('rm')) {
+        if ($INPUT->has('rm')) {
             try {
                 $this->hlp->removeRule($INPUT->str('rm'));
                 send_redirect($url);
-            } catch(Exception $e) {
+            } catch (Exception $e) {
                 msg($e->getMessage(), -1);
             }
         }
@@ -62,16 +62,15 @@ class admin_plugin_submgr extends DokuWiki_Admin_Plugin {
     /**
      * Render HTML output, e.g. helpful text and a form
      */
-    public function html() {
+    public function html()
+    {
         global $ID;
 
         $url = wl($ID, array('do' => 'admin', 'page' => 'submgr'));
 
         echo $this->locale_xhtml('intro');
 
-
-        if(!$this->checkSettings()) return;
-
+        if (!$this->checkSettings()) return;
 
         echo '<h2>' . $this->getLang('rules') . '</h2>';
 
@@ -83,7 +82,7 @@ class admin_plugin_submgr extends DokuWiki_Admin_Plugin {
         echo '<th></th>';
         echo '</tr>';
 
-        foreach($this->hlp->getRules() as $item => $data) {
+        foreach ($this->hlp->getRules() as $item => $data) {
             echo '<tr>';
             echo '<td>' . hsc($item) . '</td>';
             echo '<td>' . hsc($data[1]) . '</td>';
@@ -127,17 +126,18 @@ class admin_plugin_submgr extends DokuWiki_Admin_Plugin {
      *
      * @return bool
      */
-    protected function checkSettings() {
+    protected function checkSettings()
+    {
         /** @var DokuWiki_Auth_Plugin $auth */
         global $auth;
         $ok = true;
 
-        if(!actionOK('subscribe')) {
+        if (!actionOK('subscribe')) {
             echo $this->locale_xhtml('nosubs');
             $ok = false;
         }
 
-        if(!$auth->canDo('getUsers')) {
+        if (!$auth->canDo('getUsers')) {
             echo $this->locale_xhtml('nousers');
             $ok = false;
         }
@@ -145,5 +145,3 @@ class admin_plugin_submgr extends DokuWiki_Admin_Plugin {
         return $ok;
     }
 }
-
-// vim:ts=4:sw=4:et:
